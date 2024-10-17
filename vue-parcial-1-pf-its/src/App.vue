@@ -3,17 +3,28 @@ import { RouterLink, RouterView } from 'vue-router'
 import { BookOpenIcon, HomeIcon, ShoppingBagIcon, XCircleIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue'
 
+import { useCartStore } from '@/stores/CartStore';
+
 // librerias
 import Sidebar from 'primevue/sidebar'
 
 // Parcial: instanciar nuestro useCartStore en una variable const para utilizarla en el componente
+const cartStore = useCartStore();
+
+
 // Parcial: obtener la cantidad de libros en carrito del cartStore y pasarlo en qty tag
+
+const books: Book[] = cartStore.getAllBooks();
+
+console.log(books)
 
 // Barra Lateral
 const sidebarVisible = ref(false)
 
 // Abrir / Cerrar barra lateral
 function openCloseSidebar() {
+  cartStore.getAllBooks();
+
   if (sidebarVisible.value === true) {
     sidebarVisible.value = false
   }
@@ -57,9 +68,10 @@ function openCloseSidebar() {
       <div class="sidebar-content">
         <div class="sidebar-header">
           <h2 class="text-2xl">Carrito</h2>
-          <XCircleIcon class="h-8 w-8" @click="openCloseSidebar" />
+          <XCircleIcon class="h-8 w-8" @click="openCloseSidebar"/>
         </div>
         <!-- aca insertar CarroComponent -->
+        <CartComponent  />
       </div>
     </template>
   </Sidebar>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useBookStore } from '@/stores/BookStore';
+import { useCartStore } from '@/stores/CartStore';
 import type { Book } from '@/models/BookModel'
 
 // libreria
@@ -7,6 +8,8 @@ import Rating from 'primevue/rating';
 
 const bookStore = useBookStore();
 const books: Book[] = bookStore.getAllBooks();
+
+const cartStore = useCartStore();
 
 </script>
 
@@ -27,7 +30,7 @@ const books: Book[] = bookStore.getAllBooks();
                 <div class="price">$ {{ book.price }}.00</div>
                 <div class="overlay">
                     <!-- al hacer click en comprar el libro debera agregarse al carro -->
-                    <button class="btn-buy">Comprar</button>
+                    <button class="btn-buy" @click="cartStore.addBook(book)">Comprar</button>
                 </div>
             </div>
         </div>
